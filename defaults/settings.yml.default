@@ -37,9 +37,14 @@ delugevpn:
 deluge:
   version: v2
 transmissionvpn:
-  vpn_user: your_vpn_username
-  vpn_pass: your_vpn_password
-  vpn_prov: NORDVPN
-  vpn_endpoint: Netherlands.ovpn
+  openvpn_provider: your_vpn_provider
+  openvpn_user: your_vpn_username
+  openvpn_password: your_vpn_password
+  openvpn_config: default.ovpn
+  web_ui: transmission-web-control
+  webproxy_enabled: 'true'
+  webproxy_port: '8888'
+  webproxy_username: your_webproxy_username
+  webproxy_password: your_webproxy_password
 unifi:
   port: 8080
