@@ -41,6 +41,7 @@ transmissionvpn:
   openvpn_user: your_vpn_username
   openvpn_password: your_vpn_password
   openvpn_config: default.ovpn
+  transmission_rpc_authentication_required: 'true'
   transmission_rpc_username: your_rpc_username
   transmission_rpc_password: your_rpc_password
   transmission_web_ui: transmission-web-control
