@@ -65,6 +65,7 @@
       OPENVPN_USERNAME: "{{ transmissionvpn.openvpn_user|default('username',true) }}"
       OPENVPN_PASSWORD: "{{ transmissionvpn.openvpn_password|default('password',true) }}"
       OPENVPN_CONFIG: "{{ transmissionvpn.openvpn_config }}"
+      TRANSMISSION_RPC_AUTHENTICATION_REQUIRED: "{{ transmissionvpn.transmission_rpc_authentication_required|default('false',true) }}"
       TRANSMISSION_RPC_USERNAME: "{{ transmissionvpn.transmission_rpc_username|default('username',true) }}"
       TRANSMISSION_RPC_PASSWORD: "{{ transmissionvpn.transmission_rpc_username|default('password',true) }}"
       TRANSMISSION_WEB_UI: "{{ transmissionvpn.transmission_web_ui|default('transmission-web-control',true) }}"
