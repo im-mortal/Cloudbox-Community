@@ -17,7 +17,7 @@
 - name: Create container
   docker_container:
     name: watchtower
-    image: "containrrr/watchtower"
+    image: "containrrr/watchtower:latest-dev"
     pull: yes
     command: "--cleanup"
     env:
