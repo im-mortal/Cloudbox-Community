@@ -59,6 +59,10 @@ navidrome:
 ombix: 
   roles: 
     - 4k
+overseerrx:
+  roles:
+    - 1080
+    - 4k
 qbittorrentvpn:
   vpn_endpoint: netherlands.ovpn
   vpn_user: your_vpn_username
@@ -112,3 +116,10 @@ wordpress:
 overseerr:
   subdomain: overseerr
   direct_domain: false
+conreq:
+  subdomain: conreq
+  direct_domain: false
+vscode:
+  subdomain: code
+  direct_domain: false
+  password: "{{ user.pass }}"

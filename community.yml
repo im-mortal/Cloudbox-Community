@@ -33,6 +33,7 @@
     - { role: coder, tags: ['coder'] }
     - { role: comixed, tags: ['comixed'] }
     - { role: comicstreamer, tags: ['comicstreamer'] }
+    - { role: conreq, tags: ['conreq'] }
     - { role: deemix, tags: ['deemix'] }
     - { role: deemixrr, tags: ['deemixrr'] }
     - { role: deezloader-remix, tags: ['deezloader-remix'] }
@@ -84,7 +85,9 @@
     - { role: organizrv1, tags: ['organizrv1'] }
     - { role: ouroboros, tags: ['ouroboros'] }
     - { role: overseerr, tags: ['overseerr'] }
+    - { role: overseerrx, tags: ['overseerrx'] }
     - { role: jdownloader2, tags: ['jdownloader2'] }
+    - { role: petio, tags: ['petio'] }
     - { role: plex2, tags: ['plex2'] }
     - { role: pyload, tags: ['pyload'] }
     - { role: qbittorrent, tags: ['qbittorrent'] }
@@ -97,6 +100,7 @@
     - { role: resilio-sync, tags: ['resilio-sync'] }
     - { role: rocketchat, tags: ['rocketchat'] }
     - { role: sickchill, tags: ['sickchill'] }
+    - { role: smokeping, tags: ['smokeping'] }
     - { role: sonarrx, tags: ['sonarrx'] }
     - { role: speedtest, tags: ['speedtest'] }
     - { role: sshwifty, tags: ['sshwifty'] }
@@ -114,6 +118,7 @@
     - { role: unmanic, tags: ['unmanic'] }
     - { role: varken, tags: ['varken'] }
     - { role: vnstat, tags: ['vnstat'] }
+    - { role: vscode, tags: ['vscode'] }
     - { role: watchtower, tags: ['watchtower'] }
     - { role: wallabag, tags: ['wallabag'] }
     - { role: wordpress, tags: ['wordpress'] }

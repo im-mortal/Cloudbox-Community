@@ -42,6 +42,7 @@ environment:
     couchpotato
     coder
     comixed
+    conreq
     deemix
     deemixrr
     deezloader-remix
@@ -85,6 +86,8 @@ environment:
     organizrv1
     ouroboros
     overseerr
+    overseerrx
+    petio
     plex2
     pyload
     qbittorrent
@@ -96,6 +99,7 @@ environment:
     requestrrx
     rocketchat
     sickchill
+    smokeping
     sonarrx
     speedtest
     sshwifty
@@ -112,6 +116,7 @@ environment:
     unmanic
     varken
     vnstat
+    vscode
     watchtower
     wallabag
     wordpress
