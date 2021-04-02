@@ -16,6 +16,8 @@ bookstack:
   subdomain: bookstack
 calibreweb: 
   caliblur: true
+dashmachine:
+  subdomain: dashmachine
 deemixrr:
   version: nightly
   subdomain: deemixrr
@@ -63,6 +65,12 @@ overseerrx:
   roles:
     - 1080
     - 4k
+phantombot: 
+  subdomain: phantombot
+  bot_user:
+  bot_oauth:
+  caster_oauth:
+  caster_channel:
 qbittorrentvpn:
   vpn_endpoint: netherlands.ovpn
   vpn_user: your_vpn_username
@@ -80,6 +88,8 @@ requestrrx:
   roles: 
     - 1080
     - 4k
+searx:
+  subdomain: searx
 sonarrx: 
   roles: 
     - 1080webdl

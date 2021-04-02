@@ -43,6 +43,7 @@ environment:
     coder
     comixed
     conreq
+    dashmachine
     deemix
     deemixrr
     deezloader-remix
@@ -53,6 +54,7 @@ environment:
     epms
     filebot
     filezilla
+    firefly
     flaresolverr
     funkwhale
     gazee
@@ -87,17 +89,22 @@ environment:
     ouroboros
     overseerr
     overseerrx
+    paperless-ng
     petio
+    phantombot
     plex2
+    postgres
     pyload
     qbittorrent
     qbittorrentvpn
     quassel
     radarrx
     redbot
+    redis
     resilio-sync
     requestrrx
     rocketchat
+    searx
     sickchill
     smokeping
     sonarrx

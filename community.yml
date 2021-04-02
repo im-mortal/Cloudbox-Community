@@ -34,6 +34,7 @@
     - { role: comixed, tags: ['comixed'] }
     - { role: comicstreamer, tags: ['comicstreamer'] }
     - { role: conreq, tags: ['conreq'] }
+    - { role: dashmachine, tags: ['dashmachine'] }
     - { role: deemix, tags: ['deemix'] }
     - { role: deemixrr, tags: ['deemixrr'] }
     - { role: deezloader-remix, tags: ['deezloader-remix'] }
@@ -47,6 +48,7 @@
     - { role: filebot, tags: ['filebot'] }
     - { role: filebrowser, tags: ['filebrowser'] }
     - { role: filezilla, tags: ['filezilla'] }
+    - { role: firefly, tags: ['firefly'] }
     - { role: flaresolverr, tags: ['flaresolverr'] }
     - { role: funkwhale, tags: ['funkwhale'] }
     - { role: gazee, tags: ['gazee'] }
@@ -87,18 +89,23 @@
     - { role: overseerr, tags: ['overseerr'] }
     - { role: overseerrx, tags: ['overseerrx'] }
     - { role: jdownloader2, tags: ['jdownloader2'] }
+    - { role: paperless-ng, tags: ['paperless-ng'] }
     - { role: petio, tags: ['petio'] }
+    - { role: phantombot, tags: ['phantombot'] }
     - { role: plex2, tags: ['plex2'] }
+    - { role: postgres, tags: ['postgres'] }
     - { role: pyload, tags: ['pyload'] }
     - { role: qbittorrent, tags: ['qbittorrent'] }
     - { role: qbittorrentvpn, tags: ['qbittorrentvpn'] }
     - { role: quassel, tags: ['quassel'] }
     - { role: radarrx, tags: ['radarrx'] }
     - { role: redbot, tags: ['redbot'] }
+    - { role: redis, tags: ['redis'] }
     - { role: requestrr, tags: ['requestrr'] }
     - { role: requestrrx, tags: ['requestrrx'] }
     - { role: resilio-sync, tags: ['resilio-sync'] }
     - { role: rocketchat, tags: ['rocketchat'] }
+    - { role: searx, tags: ['searx'] }
     - { role: sickchill, tags: ['sickchill'] }
     - { role: smokeping, tags: ['smokeping'] }
     - { role: sonarrx, tags: ['sonarrx'] }
