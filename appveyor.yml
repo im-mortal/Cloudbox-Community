@@ -49,6 +49,7 @@ environment:
     deezloader-remix
     deluge
     delugevpn
+    easycountdown
     embystat
     emby2
     epms
@@ -78,6 +79,7 @@ environment:
     medusa
     minecraft
     monitorr
+    moviematch
     mylar
     mylar3
     navidrome
@@ -93,6 +95,8 @@ environment:
     petio
     phantombot
     plex2
+    plex-auto-collections
+    plex-meta-manager
     postgres
     pyload
     qbittorrent
@@ -154,13 +158,14 @@ install:
       cd ${CLOUDBOX_PATH}
       rm settings.yml accounts.yml adv_settings.yml
       git checkout $CLOUDBOX_BRANCH &> /dev/null
+      curl -o ${CLOUDBOX_PATH}/daemon.json https://raw.githubusercontent.com/saltydk/AppveyorTest/main/daemon.json
+      cp -f daemon.json ${CLOUDBOX_PATH}/roles/docker/templates/daemon.json.j2
       sudo ansible-playbook cloudbox.yml --syntax-check
       sudo ansible-playbook cloudbox.yml --tags core \
           --skip-tags sanity_check,settings \
           --skip-tags kernel,hetzner,shell,rclone,system,motd,nvidia,mounts,scripts \
           --extra-vars '{"continuous_integration":true}' \
           &> /dev/null
-  - sh: sudo docker login -u $DOCKER_USER -p $DOCKER_PWD
   - sh: |
       echo ""
       echo "=========================="

@@ -41,6 +41,11 @@ delugevpn:
   vpn_pass: your_vpn_password
   vpn_prov: pia
   vpn_user: your_vpn_username
+easycountdown:
+  subdomain: easycountdown
+  title: Change me in community settings.yml
+  background: https://raw.githubusercontent.com/jolbol1/CloudboxRoles/main/1920x1080-black-solid-color-background.jpg
+  target: Sat Feb 05 2022 08:15:00 GMT+0000
 gitea: 
   subdomain: git
 goplaxt: 
@@ -56,6 +61,10 @@ lidarrx:
   roles: 
     - flac
     - mp3
+moviematch:
+  subdomain: moviematch
+  libraries: Movies
+  plex_url: http://plex:32400
 navidrome: 
   musicfolder: /mnt/unionfs/Media/Music
 ombix: 
@@ -71,6 +80,11 @@ phantombot:
   bot_oauth:
   caster_oauth:
   caster_channel:
+plex_auto_collections:
+  cron_time: hourly
+  state: present 
+plex_meta_manager:
+  time: 03:00
 qbittorrentvpn:
   vpn_endpoint: netherlands.ovpn
   vpn_user: your_vpn_username
