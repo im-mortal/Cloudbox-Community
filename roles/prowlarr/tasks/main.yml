@@ -29,7 +29,7 @@
 - name: Create and start container
   docker_container:
     name: prowlarr
-    image: hotio/prowlarr:testing
+    image: hotio/prowlarr:nightly
     pull: yes
     env:
       TZ: "{{ tz }}"
