@@ -147,3 +147,5 @@ vscode:
   subdomain: code
   direct_domain: false
   password: "{{ user.pass }}"
+xbackbone:
+  subdomain: xbackbone

@@ -1,70 +1,53 @@
 #########################################################################
-# Title:            Community: Calibre                                  #
-# Author(s):        Andrew Johnson and SK                               #
-# URL:              https://github.com/Cloudbox/Community               #
-# Docker Image(s):  linuxserver/calibre                                 #
+# Title:         Community: Prowlarr                                    #
+# Author(s):     TABLE                                                  #
+# URL:           https://github.com/Cloudbox/Community                  #
+# Docker Image(s):  hotio/prowlarr                                      #
 # --                                                                    #
 #         Part of the Cloudbox project: https://cloudbox.works          #
 #########################################################################
 #                   GNU General Public License v3.0                     #
 #########################################################################
 ---
-- name: "Setting CloudFlare DNS Record"
+- name: "Set DNS Record on CloudFlare"
   include_role:
     name: cloudflare-dns
   vars:
-    record: calibre
+    record: prowlarr
   when: cloudflare_enabled
 
 - name: Stop and remove any existing container
   docker_container:
-    name: calibre
+    name: prowlarr
     state: absent
 
-- name: Create htpasswd
-  htpasswd:
-    path: "/opt/nginx-proxy/htpasswd/{{ item }}.{{ user.domain }}"
-    name: "{{ user.name }}"
-    password: "{{ user.pass }}"
-    owner: "{{ user.name }}"
-    group: "{{ user.name }}"
-    mode: 0664
-  with_items:
-    - calibre
-
-- name: Create calibre directories
+- name: Create prowlarr directories
   file: "path={{ item }} state=directory mode=0775 owner={{ user.name }} group={{ user.name }}"
   with_items:
-   - /opt/calibre
-   - /mnt/local/Media/Books
+    - /opt/prowlarr
 
 - name: Create and start container
   docker_container:
-    name: calibre
-    image: linuxserver/calibre
+    name: prowlarr
+    image: hotio/prowlarr:testing
     pull: yes
     env:
       TZ: "{{ tz }}"
       PUID: "{{ uid }}"
       PGID: "{{ gid }}"
-      LIBRARYINTERNALPATH: "/library"
-      VIRTUAL_HOST: "calibre.{{ user.domain }}"
-      VIRTUAL_PORT: "8080"
-      LETSENCRYPT_HOST: "calibre.{{ user.domain }}"
+      UMASK: "002"
+      VIRTUAL_HOST: "prowlarr.{{ user.domain }}"
+      VIRTUAL_PORT: "9696"
+      LETSENCRYPT_HOST: "prowlarr.{{ user.domain }}"
       LETSENCRYPT_EMAIL: "{{ user.email }}"
     volumes:
-      - "/opt/calibre:/config"
-      - "/mnt/unionfs/Media/Books:/library"
-      - "/mnt:/mnt"
+      - "/opt/prowlarr:/config"
     labels:
       "com.github.cloudbox.cloudbox_managed": "true"
     networks:
       - name: cloudbox
         aliases:
-          - calibre
-    exposed_ports:
-      - 8080
-      - 8081
+          - prowlarr
     purge_networks: yes
     restart_policy: unless-stopped
     state: started

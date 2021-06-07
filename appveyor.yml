@@ -78,6 +78,7 @@ environment:
     mediabutler
     medusa
     minecraft
+    mkvtoolnix
     monitorr
     moviematch
     mylar
@@ -98,6 +99,7 @@ environment:
     plex-auto-collections
     plex-meta-manager
     postgres
+    prowlarr
     pyload
     qbittorrent
     qbittorrentvpn
@@ -131,6 +133,7 @@ environment:
     watchtower
     wallabag
     wordpress
+    xbackbone
     xteve
     znc
 
