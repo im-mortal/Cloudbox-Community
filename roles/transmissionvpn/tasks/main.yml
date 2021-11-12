@@ -25,6 +25,9 @@
   file: "path={{ item }} state=directory mode=0775 owner={{ user.name }} group={{ user.name }}"
   with_items:
     - /opt/transmissionvpn
+    - /opt/transmissionvpn/config
+    - /opt/transmissionvpn/data
+    - /opt/transmissionvpn/vpn
 
 - name: Create new downloads directories
   file: "path={{ item }} state=directory mode=0775 owner={{ user.name }} group={{ user.name }} recurse=yes"
@@ -42,7 +45,8 @@
     default_volumes:
       - "/opt/transmissionvpn/vpn:/etc/openvpn/custom"
       - "/mnt:/mnt"
-      - "/opt/transmissionvpn:/config"
+      - "/opt/transmissionvpn/config:/config"
+      - "/opt/transmissionvpn/data:/data"
 
 - name: Create and start container
   docker_container:
@@ -68,7 +72,7 @@
       TRANSMISSION_RPC_AUTHENTICATION_REQUIRED: "{{ transmissionvpn.transmission_rpc_authentication_required|default('false',true) }}"
       TRANSMISSION_RPC_USERNAME: "{{ transmissionvpn.transmission_rpc_username|default('username',true) }}"
       TRANSMISSION_RPC_PASSWORD: "{{ transmissionvpn.transmission_rpc_password|default('password',true) }}"
-      TRANSMISSION_WEB_UI: "{{ transmissionvpn.transmission_web_ui|default('transmission-web-control',true) }}"
+      TRANSMISSION_WEB_UI: "{{ transmissionvpn.transmission_web_ui|default('flood-for-transmission',true) }}"
       WEBPROXY_ENABLED: "{{ transmissionvpn.webproxy_enabled|default('true',true) }}"
       WEBPROXY_PORT: "{{ transmissionvpn.webproxy_port|default('8888',true) }}"
       WEBPROXY_USERNAME: "{{ transmissionvpn.webproxy_username|default('username',true) }}"
@@ -77,7 +81,6 @@
       TRANSMISSION_RATIO_LIMIT: "0"
       TRANSMISSION_RATIO_LIMIT_ENABLED: "true"
       TRANSMISSION_WATCH_DIR_ENABLED: "false"
-      TRANSMISSION_HOME: "/opt/transmissionvpn"
       TZ: "{{ tz }}"
     volumes: "{{ default_volumes + torrents_downloads_path|default([]) }}"
     dns_servers: 8.8.8.8
