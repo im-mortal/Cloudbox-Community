@@ -1,8 +1,8 @@
 #########################################################################
-# Title:            Community: Minecraft Server                         #
-# Author(s):        atilling                                            #
+# Title:            Community: JFA-Go                                   #
+# Author(s):        Bonny1992                                           #
 # URL:              https://github.com/Cloudbox/Community               #
-# Docker Image(s):  itzg/minecraft-server                               #
+# Docker Image(s):  hrfee/jfa-go                                        #
 # --                                                                    #
 #         Part of the Cloudbox project: https://cloudbox.works          #
 #########################################################################
@@ -13,46 +13,43 @@
   include_role:
     name: cloudflare-dns
   vars:
-    record: minecraft
+    record: "{{ jfa_go.subdomain|default('jfa-go',true) }}"
   when: cloudflare_enabled
 
 - name: Stop and remove any existing container
   docker_container:
-    name: minecraft
+    name: jfa-go
     state: absent
 
-- name: Create minecraft directories
+- name: Create jfa-go directories
   file: "path={{ item }} state=directory mode=0775 owner={{ user.name }} group={{ user.name }}"
   with_items:
-    - /opt/minecraft
+    - /opt/jfa-go
 
 - name: Create and start container
   docker_container:
-    name: minecraft
-    image: itzg/minecraft-server
+    name: jfa-go
+    image: hrfee/jfa-go:latest
     pull: yes
-    published_ports:
-      - "25565:25565"
     env:
       TZ: "{{ tz }}"
-      UID: "{{ uid }}"
-      GID: "{{ gid }}"
-      VIRTUAL_HOST: "minecraft.{{ user.domain }}"
-      VIRTUAL_PORT: "25565"
-      EULA: "TRUE"
-      WHITELIST: "{{ uid }}"
-      OPS: "{{ uid }}"
-      LETSENCRYPT_HOST: "minecraft.{{ user.domain }}"
+      PUID: "{{ uid }}"
+      GUID: "{{ gid }}"
+      VIRTUAL_HOST: "{{ jfa_go.subdomain|default('jfa-go',true) }}.{{ user.domain }}"
+      VIRTUAL_PORT: "8056"
+      LETSENCRYPT_HOST: "{{ jfa_go.subdomain|default('jfa-go',true) }}.{{ user.domain }}"
       LETSENCRYPT_EMAIL: "{{ user.email }}"
     volumes:
+      - "/opt/jfa-go:/data"
+      - "/opt/jellyfin:/jf"
       - "/etc/localtime:/etc/localtime:ro"
-      - "/opt/minecraft/data:/data"
+      - "/mnt:/mnt"
     labels:
       "com.github.cloudbox.cloudbox_managed": "true"
     networks:
       - name: cloudbox
         aliases:
-          - minecraft
+          - jfa-go
     purge_networks: yes
     restart_policy: unless-stopped
     state: started
