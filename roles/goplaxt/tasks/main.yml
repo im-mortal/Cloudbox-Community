@@ -29,7 +29,7 @@
 - name: Create and start container
   docker_container:
     name: goplaxt
-    image: xanderstrike/goplaxt
+    image: ghcr.io/im-mortal/goplaxt
     pull: yes
     env:
       TZ: "{{ tz }}"
