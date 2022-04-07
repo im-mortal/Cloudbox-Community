@@ -9,13 +9,6 @@
 #                   GNU General Public License v3.0                     #
 #########################################################################
 ---
-- name: "Setting CloudFlare DNS Record"
-  include_role:
-    name: cloudflare-dns
-  vars:
-    record: plextraktsync
-  when: cloudflare_enabled
-
 - name: Stop and remove any existing container
   docker_container:
     name: plextraktsync
