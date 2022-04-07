@@ -52,3 +52,40 @@
     purge_networks: yes
     restart_policy: unless-stopped
     state: started
+
+- name: Check if 'plextraktsync.service' exists
+  stat:
+    path: '/etc/systemd/system/plextraktsync.service'
+  register: plextraktsync_service
+
+- name: Import 'plextraktsync.service' file
+  template:
+    src: plextraktsync.service.j2
+    dest: /etc/systemd/system/plextraktsync.service
+    owner: '{{ user.name }}'
+    group: '{{ user.name }}'
+    mode: 0775
+    force: yes
+  when: not plextraktsync_service.stat.exists
+
+- name: Check if 'plextraktsync.timer' exists
+  stat:
+    path: '/etc/systemd/system/plextraktsync.timer'
+  register: plextraktsync_timer
+
+- name: Import 'plextraktsync.timer' file
+  template:
+    src: plextraktsync.timer.j2
+    dest: /etc/systemd/system/plextraktsync.timer
+    owner: '{{ user.name }}'
+    group: '{{ user.name }}'
+    mode: 0775
+    force: yes
+  when: not plextraktsync_timer.stat.exists
+
+- name: Start 'plextraktsync.timer'
+  systemd:
+    state: started
+    name: plextraktsync.timer
+    daemon_reload: yes
+    enabled: yes

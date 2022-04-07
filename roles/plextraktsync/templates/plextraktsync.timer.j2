@@ -1,0 +1,15 @@
+# /etc/systemd/system/plextraktsync.timer
+
+[Unit]
+Description=Schedule Plex<=>Trakt sync using PlexTraktSync
+RefuseManualStart=no
+RefuseManualStop=no
+
+[Timer]
+Persistent=true
+OnBootSec=180
+OnUnitActiveSec=1h
+Unit=plextraktsync.service
+
+[Install]
+WantedBy=timers.target

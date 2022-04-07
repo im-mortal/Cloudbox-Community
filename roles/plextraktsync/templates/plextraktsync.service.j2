@@ -1,0 +1,9 @@
+# /etc/systemd/system/plextraktsync.service
+
+[Unit]
+Description=Sync collected and watched Plex media with Trakt using PlexTraktSync
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/docker exec plextraktsync plextraktsync sync
+StandardOutput=null
