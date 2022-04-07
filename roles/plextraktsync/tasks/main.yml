@@ -90,6 +90,11 @@
     daemon_reload: yes
     enabled: yes
 
+- name: "Check if plextraktsync logrotate config exists"
+  stat:
+    path: /etc/logrotate.d/plextraktsync
+  register: plextraktsync_logrotate_confd
+
 - name: Configure logrotate for plextraktsync
   blockinfile:
     path: /etc/logrotate.d/plextraktsync
@@ -107,3 +112,4 @@
     owner: '{{ user.name }}'
     group: '{{ user.name }}'
     mode: 0775
+  when: not plextraktsync_logrotate_confd.stat.exists
