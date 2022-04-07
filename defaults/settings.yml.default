@@ -87,6 +87,12 @@ plex_auto_collections:
   state: present 
 plex_meta_manager:
   time: 03:00
+plextraktsync:
+  plex_baseurl:
+  plex_localurl:
+  plex_token:
+  plex_username:
+  trakt_username:
 qbittorrentvpn:
   vpn_endpoint: netherlands.ovpn
   vpn_user: your_vpn_username

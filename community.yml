@@ -98,6 +98,7 @@
     - { role: plex2, tags: ['plex2'] }
     - { role: plex-auto-collections, tags: ['plex-auto-collections'] }
     - { role: plex-meta-manager, tags: ['plex-meta-manager'] }
+    - { role: plextraktsync, tags: ['plextraktsync'] }
     - { role: postgres, tags: ['postgres'] }
     - { role: prowlarr, tags: ['prowlarr'] }
     - { role: pyload, tags: ['pyload'] }

@@ -1,0 +1,54 @@
+#########################################################################
+# Title:            Community: PlexTraktSync                                  #
+# Author(s):        im-mortal                                             #
+# URL:              https://github.com/Cloudbox/Community               #
+# Docker Image(s):  ghcr.io/taxel/plextraktsync                                #
+# --                                                                    #
+#         Part of the Cloudbox project: https://cloudbox.works          #
+#########################################################################
+#                   GNU General Public License v3.0                     #
+#########################################################################
+---
+- name: "Setting CloudFlare DNS Record"
+  include_role:
+    name: cloudflare-dns
+  vars:
+    record: plextraktsync
+  when: cloudflare_enabled
+
+- name: Stop and remove any existing container
+  docker_container:
+    name: plextraktsync
+    state: absent
+
+- name: Create plextraktsync directories
+  file: "path={{ item }} state=directory mode=0775 owner={{ user.name }} group={{ user.name }}"
+  with_items:
+    - /opt/plextraktsync
+
+- name: Create and start container
+  docker_container:
+    name: plextraktsync
+    image: ghcr.io/taxel/plextraktsync
+    pull: yes
+    env:
+      TZ: "{{ tz }}"
+      PUID: "{{ uid }}"
+      PGID: "{{ gid }}"
+      PLEX_BASEURL: "{{ plextraktsync.plex_baseurl }}"
+      PLEX_LOCALURL: "{{ plextraktsync.plex_localurl }}"
+      PLEX_TOKEN: "{{ plextraktsync.plex_token }}"
+      PLEX_USERNAME: "{{ plextraktsync.plex_username }}"
+      TRAKT_USERNAME: "{{ plextraktsync.trakt_username }}"
+    command: plextraktsync watch
+    volumes:
+      - "/opt/plextraktsync:/app/config"
+    labels:
+      "com.github.cloudbox.cloudbox_managed": "true"
+    networks:
+      - name: cloudbox
+        aliases:
+          - plextraktsync
+    purge_networks: yes
+    restart_policy: unless-stopped
+    state: started
