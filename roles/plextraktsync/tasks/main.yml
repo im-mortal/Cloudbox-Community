@@ -60,7 +60,7 @@
 
 - name: Import 'plextraktsync.service' file
   template:
-    src: plextraktsync.service.j2
+    src: systemd/plextraktsync.service.j2
     dest: /etc/systemd/system/plextraktsync.service
     owner: '{{ user.name }}'
     group: '{{ user.name }}'
@@ -75,7 +75,7 @@
 
 - name: Import 'plextraktsync.timer' file
   template:
-    src: plextraktsync.timer.j2
+    src: systemd/plextraktsync.timer.j2
     dest: /etc/systemd/system/plextraktsync.timer
     owner: '{{ user.name }}'
     group: '{{ user.name }}'
