@@ -28,11 +28,11 @@
       TZ: "{{ tz }}"
       PUID: "{{ uid }}"
       PGID: "{{ gid }}"
-      PLEX_BASEURL: "{{ plextraktsync.plex_baseurl }}"
-      PLEX_LOCALURL: "{{ plextraktsync.plex_localurl }}"
-      PLEX_TOKEN: "{{ plextraktsync.plex_token }}"
-      PLEX_USERNAME: "{{ plextraktsync.plex_username }}"
-      TRAKT_USERNAME: "{{ plextraktsync.trakt_username }}"
+      PLEX_BASEURL: "{{ plextraktsync.plex_baseurl | default(omit) }}"
+      PLEX_LOCALURL: "{{ plextraktsync.plex_localurl | default(omit) }}"
+      PLEX_TOKEN: "{{ plextraktsync.plex_token | default(omit) }}"
+      PLEX_USERNAME: "{{ plextraktsync.plex_username | default(omit) }}"
+      TRAKT_USERNAME: "{{ plextraktsync.trakt_username | default(omit) }}"
     command: plextraktsync watch
     volumes:
       - "/opt/plextraktsync:/app/config"
