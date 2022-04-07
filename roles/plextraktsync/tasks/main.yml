@@ -89,3 +89,21 @@
     name: plextraktsync.timer
     daemon_reload: yes
     enabled: yes
+
+- name: Configure logrotate for plextraktsync
+  blockinfile:
+    path: /etc/logrotate.d/plextraktsync
+    block: |
+      /opt/plextraktsync/*.log {
+        rotate 5
+        compress
+        missingok
+        notifempty
+        postrotate
+          docker restart plextraktsync
+        endscript
+      }
+    create: true
+    owner: '{{ user.name }}'
+    group: '{{ user.name }}'
+    mode: 0775
