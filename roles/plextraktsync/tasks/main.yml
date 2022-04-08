@@ -33,7 +33,7 @@
       PLEX_TOKEN: "{{ plextraktsync.plex_token | default(omit) }}"
       PLEX_USERNAME: "{{ plextraktsync.plex_username | default(omit) }}"
       TRAKT_USERNAME: "{{ plextraktsync.trakt_username | default(omit) }}"
-    command: plextraktsync watch
+    command: watch
     volumes:
       - "/opt/plextraktsync:/app/config"
     labels:
