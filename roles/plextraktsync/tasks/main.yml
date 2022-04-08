@@ -11,98 +11,98 @@
 ---
 - name: Stop and remove any existing container
   docker_container:
-    name: plextraktsync
+    name: "{{ role_name }}"
     state: absent
 
-- name: Create plextraktsync directories
+- name: "Create {{ role_name }} directories"
   file: "path={{ item }} state=directory mode=0775 owner={{ user.name }} group={{ user.name }}"
   with_items:
-    - /opt/plextraktsync
+    - "/opt/{{ role_name }}"
 
 - name: Create and start container
   docker_container:
-    name: plextraktsync
+    name: "{{ role_name }}"
     image: ghcr.io/taxel/plextraktsync
     pull: yes
     env:
       TZ: "{{ tz }}"
       PUID: "{{ uid }}"
       PGID: "{{ gid }}"
-      PLEX_BASEURL: "{{ plextraktsync.plex_baseurl | default(omit) }}"
-      PLEX_LOCALURL: "{{ plextraktsync.plex_localurl | default(omit) }}"
-      PLEX_TOKEN: "{{ plextraktsync.plex_token | default(omit) }}"
-      PLEX_USERNAME: "{{ plextraktsync.plex_username | default(omit) }}"
-      TRAKT_USERNAME: "{{ plextraktsync.trakt_username | default(omit) }}"
+      PLEX_BASEURL: "{{ role_name.plex_baseurl | default(omit) }}"
+      PLEX_LOCALURL: "{{ role_name.plex_localurl | default(omit) }}"
+      PLEX_TOKEN: "{{ role_name.plex_token | default(omit) }}"
+      PLEX_USERNAME: "{{ role_name.plex_username | default(omit) }}"
+      TRAKT_USERNAME: "{{ role_name.trakt_username | default(omit) }}"
     command: watch
     volumes:
-      - "/opt/plextraktsync:/app/config"
+      - "/opt/{{ role_name }}:/app/config"
     labels:
       "com.github.cloudbox.cloudbox_managed": "true"
     networks:
       - name: cloudbox
         aliases:
-          - plextraktsync
+          - "{{ role_name }}"
     purge_networks: yes
     restart_policy: unless-stopped
     state: started
 
-- name: Check if 'plextraktsync.service' exists
+- name: "Check if '{{ role_name }}.service' exists"
   stat:
-    path: '/etc/systemd/system/plextraktsync.service'
-  register: plextraktsync_service
+    path: '/etc/systemd/system/{{ role_name }}.service'
+  register: "{{ role_name }}_service"
 
-- name: Import 'plextraktsync.service' file
+- name: "Import '{{ role_name }}.service' file"
   template:
-    src: systemd/plextraktsync.service.j2
-    dest: /etc/systemd/system/plextraktsync.service
+    src: "systemd/{{ role_name }}.service.j2"
+    dest: "/etc/systemd/system/{{ role_name }}.service"
     owner: '{{ user.name }}'
     group: '{{ user.name }}'
     mode: 0775
     force: yes
-  when: not plextraktsync_service.stat.exists
+  when: "not {{ role_name }}_service.stat.exists"
 
-- name: Check if 'plextraktsync.timer' exists
+- name: "Check if '{{ role_name }}.timer' exists"
   stat:
-    path: '/etc/systemd/system/plextraktsync.timer'
-  register: plextraktsync_timer
+    path: '/etc/systemd/system/{{ role_name }}.timer'
+  register: "{{ role_name }}_timer"
 
-- name: Import 'plextraktsync.timer' file
+- name: "Import '{{ role_name }}.timer' file"
   template:
-    src: systemd/plextraktsync.timer.j2
-    dest: /etc/systemd/system/plextraktsync.timer
+    src: "systemd/{{ role_name }}.timer.j2"
+    dest: "/etc/systemd/system/{{ role_name }}.timer"
     owner: '{{ user.name }}'
     group: '{{ user.name }}'
     mode: 0775
     force: yes
-  when: not plextraktsync_timer.stat.exists
+  when: "not {{ role_name }}_timer.stat.exists"
 
-- name: Start 'plextraktsync.timer'
+- name: "Start '{{ role_name }}.timer'"
   systemd:
     state: started
-    name: plextraktsync.timer
+    name: "{{ role_name }}.timer"
     daemon_reload: yes
     enabled: yes
 
-- name: "Check if plextraktsync logrotate config exists"
+- name: "Check if '{{ role_name }}' logrotate config exists"
   stat:
-    path: /etc/logrotate.d/plextraktsync
-  register: plextraktsync_logrotate_confd
+    path: "/etc/logrotate.d/{{ role_name }}"
+  register: "{{ role_name }}_logrotate_confd"
 
-- name: Configure logrotate for plextraktsync
+- name: "Configure logrotate for {{ role_name }}"
   blockinfile:
-    path: /etc/logrotate.d/plextraktsync
+    path: "/etc/logrotate.d/{{ role_name }}"
     block: |
-      /opt/plextraktsync/*.log {
+      /opt/{{ role_name }}/*.log {
         rotate 5
         compress
         missingok
         notifempty
         postrotate
-          docker restart plextraktsync
+          docker restart {{ role_name }}
         endscript
       }
     create: true
     owner: '{{ user.name }}'
     group: '{{ user.name }}'
     mode: 0775
-  when: not plextraktsync_logrotate_confd.stat.exists
+  when: "not {{ role_name }}_logrotate_confd.stat.exists"
