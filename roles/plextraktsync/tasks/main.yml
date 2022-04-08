@@ -49,7 +49,7 @@
 - name: "Check if '{{ role_name }}.service' exists"
   stat:
     path: '/etc/systemd/system/{{ role_name }}.service'
-  register: "{{ role_name }}_service"
+  register: plextraktsync_service
 
 - name: "Import '{{ role_name }}.service' file"
   template:
@@ -59,12 +59,12 @@
     group: '{{ user.name }}'
     mode: 0775
     force: yes
-  when: "not {{ role_name }}_service.stat.exists"
+  when: not plextraktsync_service.stat.exists
 
 - name: "Check if '{{ role_name }}.timer' exists"
   stat:
     path: '/etc/systemd/system/{{ role_name }}.timer'
-  register: "{{ role_name }}_timer"
+  register: plextraktsync_timer
 
 - name: "Import '{{ role_name }}.timer' file"
   template:
@@ -74,9 +74,9 @@
     group: '{{ user.name }}'
     mode: 0775
     force: yes
-  when: "not {{ role_name }}_timer.stat.exists"
+  when: not plextraktsync_timer.stat.exists
 
-- name: "Start '{{ role_name }}.timer'"
+- name: Start 'plextraktsync.timer'
   systemd:
     state: started
     name: "{{ role_name }}.timer"
@@ -86,7 +86,7 @@
 - name: "Check if '{{ role_name }}' logrotate config exists"
   stat:
     path: "/etc/logrotate.d/{{ role_name }}"
-  register: "{{ role_name }}_logrotate_confd"
+  register: plextraktsync_logrotate_confd
 
 - name: "Configure logrotate for {{ role_name }}"
   blockinfile:
@@ -105,4 +105,4 @@
     owner: '{{ user.name }}'
     group: '{{ user.name }}'
     mode: 0775
-  when: "not {{ role_name }}_logrotate_confd.stat.exists"
+  when: not plextraktsync_logrotate_confd.stat.exists
