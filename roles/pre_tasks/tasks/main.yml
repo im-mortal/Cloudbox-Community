@@ -11,3 +11,7 @@
 - name: APT Tasks
   import_tasks: "subtasks/apt.yml"
   tags: always
+
+- name: Timezone Tasks
+  import_tasks: "subtasks/timezone.yml"
+  tags: always
