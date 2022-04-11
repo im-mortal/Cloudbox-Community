@@ -1,8 +1,8 @@
 #########################################################################
-# Title:            Community: PlexTraktSync                                  #
-# Author(s):        im-mortal                                             #
+# Title:            Community: PlexTraktSync                            #
+# Author(s):        im-mortal                                           #
 # URL:              https://github.com/Cloudbox/Community               #
-# Docker Image(s):  ghcr.io/taxel/plextraktsync                                #
+# Docker Image(s):  ghcr.io/taxel/plextraktsync                         #
 # --                                                                    #
 #         Part of the Cloudbox project: https://cloudbox.works          #
 #########################################################################
