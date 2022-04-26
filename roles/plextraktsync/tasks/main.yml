@@ -97,9 +97,7 @@
         compress
         missingok
         notifempty
-        postrotate
-          docker restart {{ role_name }}
-        endscript
+        copytruncate
       }
     create: true
     owner: '{{ user.name }}'
