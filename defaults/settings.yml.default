@@ -123,15 +123,15 @@ sonarrx:
 synclounge: 
   domain: ~
   subdomain: synclounge
+tdarrv2:
+  subdomain: tdarrv2
+  direct_domain: false
+  transcode_dir: /tdarrv2_transcode_tmp_cache
+  serverip: tdarrv2
 transmissionvpn: 
-  openvpn_provider: your_vpn_provider
-  openvpn_user: your_vpn_username
-  openvpn_password: your_vpn_password
-  openvpn_config: default.ovpn
   transmission_download_dir: '/data/completed'
   transmission_incomplete_dir: '/data/incomplete'
   transmission_watch_dir: '/data/watch'
-  transmission_rpc_authentication_required: 'true'
   transmission_rpc_username: your_rpc_username
   transmission_rpc_password: your_rpc_password
   transmission_web_ui: transmission-web-control
@@ -139,12 +139,17 @@ transmissionvpn:
   webproxy_port: '8888'
   webproxy_username: your_webproxy_username
   webproxy_password: your_webproxy_password
+  vpn_endpoint: netherlands.ovpn
+  vpn_pass: your_vpn_password
+  vpn_prov: NORDVPN
+  vpn_user: your_vpn_username
+  rpc_authentication_required: false
 transmissionx: 
   roles: 
     - ""
 unifi: 
   port: 8080
-varken: 
+varken:
   tautulli_subdomain: plexpy
 wordpress: 
   direct_domain: false
