@@ -2,7 +2,7 @@
 # Title:            Community: Mylar3                                   #
 # Author(s):        theotocopulitos,owine                               #
 # URL:              https://github.com/Cloudbox/Community               #
-# Docker Image(s):  cr.hotio.dev/hotio/mylar3                                        #
+# Docker Image(s):  lscr.io/linuxserver/mylar3                          #
 # --                                                                    #
 #         Part of the Cloudbox project: https://cloudbox.works          #
 #########################################################################
@@ -21,9 +21,6 @@
     name: mylar3
     state: absent
 
-- name: Hotio Migration Tasks
-  import_tasks: "subtasks/hotio_migration.yml"
-
 - name: Create mylar3 directories
   file: "path={{ item }} state=directory mode=0775 owner={{ user.name }} group={{ user.name }}"
   with_items:
@@ -33,7 +30,7 @@
 - name: Create and start container
   docker_container:
     name: mylar3
-    image: cr.hotio.dev/hotio/mylar3
+    image: lscr.io/linuxserver/mylar3
     pull: yes
     env:
       PUID: "{{ uid }}"

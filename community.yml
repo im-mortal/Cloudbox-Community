@@ -20,6 +20,7 @@
     - { role: apprise, tags: ['apprise'] }
     - { role: archivebox, tags: ['archivebox'] }
     - { role: asshama, tags: ['asshama'] }
+    - { role: audiobookshelf, tags: ['audiobookshelf'] }
     - { role: autoscan, tags: ['autoscan'] }
     - { role: bazarrx, tags: ['bazarrx'] }
     - { role: beets, tags: ['beets'] }
@@ -123,7 +124,6 @@
     - { role: stash, tags: ['stash'] }
     - { role: subsonic, tags: ['subsonic'] }
     - { role: synclounge, tags: ['synclounge'] }
-    - { role: tdarr, tags: ['tdarr'] }
     - { role: tdarrv2, tags: ['tdarrv2'] }
     - { role: tdarrv2-node, tags: ['tdarrv2', 'tdarrv2-node'] }
     - { role: telegraf, tags: ['telegraf'] }

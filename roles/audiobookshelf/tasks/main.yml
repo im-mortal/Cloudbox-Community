@@ -1,8 +1,8 @@
 #########################################################################
-# Title:            Community: Readarr                                  #
-# Author(s):        edzeg                                               #
+# Title:            Community: Audiobookshelf                           #
+# Author(s):        astrodad                                            #
 # URL:              https://github.com/Cloudbox/Community               #
-# Docker Image(s):  cr.hotio.dev/hotio/readarr                                       #
+# Docker Image(s):  ghcr.io/advplyr/audiobookshelf                      #
 # --                                                                    #
 #         Part of the Cloudbox project: https://cloudbox.works          #
 #########################################################################
@@ -13,51 +13,46 @@
   include_role:
     name: cloudflare-dns
   vars:
-    record: readarr
+    record: audiobookshelf
   when: cloudflare_enabled
 
 - name: Stop and remove any existing container
   docker_container:
-    name: readarr
+    name: audiobookshelf
     state: absent
 
-- name: Create readarr directories
+- name: Create audiobookshelf directories
   file: "path={{ item }} state=directory mode=0775 owner={{ user.name }} group={{ user.name }}"
   with_items:
-    - /opt/readarr
-    - /mnt/local/Media/Books
-
-- name: Set default_volumes variable
-  set_fact:
-    default_volumes:
-      - "/opt/readarr:/config"
-      - "/opt/scripts:/scripts"
-      - "/mnt:/mnt"
-      - "/mnt/unionfs/Media/Books:/library"
+    - /opt/audiobookshelf
+    - /opt/audiobookshelf/metadata
 
 - name: Create and start container
   docker_container:
-    name: readarr
-    image: cr.hotio.dev/hotio/readarr:nightly
+    name: audiobookshelf
+    image: ghcr.io/advplyr/audiobookshelf:latest
     pull: yes
-    exposed_ports:
-      - "8787"
     env:
       PUID: "{{ uid }}"
       PGID: "{{ gid }}"
-      UMASK: "002"
-      VIRTUAL_HOST: "readarr.{{ user.domain }}"
-      VIRTUAL_PORT: "8787"
-      LETSENCRYPT_HOST: "readarr.{{ user.domain }}"
-      LETSENCRYPT_EMAIL: "{{ user.email }}"
       TZ: "{{ tz }}"
-    volumes: "{{ default_volumes + nzbs_downloads_path|default([]) + torrents_downloads_path|default([]) }}"
+      VIRTUAL_HOST: "audiobookshelf.{{ user.domain }}"
+      VIRTUAL_PORT: "13378"
+      LETSENCRYPT_HOST: "audiobookshelf.{{ user.domain }}"
+      LETSENCRYPT_EMAIL: "{{ user.email }}"
+    volumes:
+      - "/opt/audiobookshelf:/config"
+      - "/opt/audiobookshelf/metadata:/metadata"
+      - "/mnt/unionfs/Media/Audiobooks:/audiobooks"
+      - "/mnt/unionfs/Media/Podcasts:/podcasts"
+      - "/mnt:/mnt"
+
     labels:
       "com.github.cloudbox.cloudbox_managed": "true"
     networks:
       - name: cloudbox
         aliases:
-          - readarr
+          - audiobookshelf
     purge_networks: yes
     restart_policy: unless-stopped
     state: started
